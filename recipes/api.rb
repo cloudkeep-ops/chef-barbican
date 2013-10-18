@@ -90,3 +90,9 @@ service "barbican-api" do
   action [ :enable, :start ]
 end
 
+# Configure NewRelic on this uWSGI server.
+unless Chef::Config[:solo]
+  node.set[:meetme_newrelic_plugin][:uwsgi][:host] = node[:ipaddress]
+  node.save
+  include_recipe 'barbican::_newrelic_uwsgi'
+end
