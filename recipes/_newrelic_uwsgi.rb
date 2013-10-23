@@ -13,7 +13,7 @@ service "newrelic_plugin_agent" do
 end
 
 template node[:meetme_newrelic_plugin][:config_file] do
-  source "uswgi.newrelic_plugin_agent.cfg.erb"
+  source "uwsgi.newrelic_plugin_agent.cfg.erb"
   owner node[:meetme_newrelic_plugin][:user]
   group node[:meetme_newrelic_plugin][:group]
   mode 0774

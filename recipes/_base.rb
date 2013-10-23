@@ -46,12 +46,12 @@ end
 unless Chef::Config[:solo]
   newrelic_info = data_bag_item(node.chef_environment, :newrelic)
   node.set[:newrelic] = node[:newrelic].merge(newrelic_info)
-
-  cp_info = data_bag_item(node.chef_environment, :cloudpassage)
-  node.set[:cloudpassage] = node[:cloudpassage].merge(cp_info)
-
+#
+#  cp_info = data_bag_item(node.chef_environment, :cloudpassage)
+#  node.set[:cloudpassage] = node[:cloudpassage].merge(cp_info)
+#
   node.save
-
+#
   include_recipe 'barbican::_newrelic'
-  include_recipe 'chef-cloudpassage'
+#  include_recipe 'chef-cloudpassage'
 end

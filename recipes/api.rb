@@ -23,8 +23,19 @@
 
 include_recipe "barbican::_base"
 
-%w{ barbican-common barbican-api }.each do |pkg|
-  package pkg
+#%w{ barbican-common barbican-api }.each do |pkg|
+#  package pkg
+#end
+
+yum_package "barbican-common" do
+  action :install
+  retries 5
+  retry_delay 10
+end
+yum_package "barbican-api" do
+  action :install
+  retries 5
+  retry_delay 10
 end
 
 postgres_bag = data_bag_item("#{node.chef_environment}", 'postgresql')
@@ -96,3 +107,6 @@ unless Chef::Config[:solo]
   node.save
   include_recipe 'barbican::_newrelic_uwsgi'
 end
+
+# Perform final configuration on the server.
+include_recipe 'barbican::_final'
