@@ -23,19 +23,12 @@
 
 include_recipe "barbican::_base"
 
-#%w{ barbican-common barbican-api }.each do |pkg|
-#  package pkg
-#end
-
-yum_package "barbican-common" do
-  action :install
-  retries 5
-  retry_delay 10
-end
-yum_package "barbican-api" do
-  action :install
-  retries 5
-  retry_delay 10
+%w{ barbican-common barbican-api }.each do |pkg|
+  package pkg do
+    action :install
+    retries 5
+    retry_delay 10
+  end
 end
 
 postgres_bag = data_bag_item("#{node.chef_environment}", 'postgresql')
