@@ -24,7 +24,11 @@
 include_recipe "barbican::_base"
 
 %w{ barbican-common barbican-worker }.each do |pkg|
-  package pkg
+  package pkg do
+    action :install
+    retries 5
+    retry_delay 10
+  end
 end
 
 postgres_bag = data_bag_item("#{node.chef_environment}", 'postgresql')
@@ -88,3 +92,5 @@ service "barbican-worker" do
   action [ :enable, :start ]
 end
 
+# Perform final configuration on the server.
+include_recipe 'barbican::_final'
