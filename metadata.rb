@@ -9,7 +9,7 @@ version          '0.1.5'
 depends          'yum'
 depends          'authorized_keys'
 depends          'ntp'
-depends          'chef-cloudpassage'
+depends          'barbican-cloudpassage'
 depends          'newrelic'
 depends          'python'
 

@@ -23,5 +23,5 @@ unless Chef::Config[:solo]
   node.set[:cloudpassage] = node[:cloudpassage].merge(cp_info)
   node.save
 
-  include_recipe 'chef-cloudpassage'
+  include_recipe 'barbican-cloudpassage'
 end
