@@ -117,22 +117,32 @@ scrub_time = 43200
 # Make sure this is also set in glance-scrubber.conf
 scrubber_datadir = /var/lib/barbican/scrubber
 
-[celery]
-# Location of the main celery resource/tasks location
-project = barbican.queue.celery.resources
-
-# Broker URL
-broker = amqp://guest@<%= @queue_ip %>/
-
-# Module includes
-include = barbican.queue.celery.resources
-
-
 # ======== OpenStack policy integration
 # JSON file representing policy (string value)                                          
 policy_file=/etc/barbican/policy.json
 
 # Rule checked when requested rule is not found (string value)                          
 policy_default_rule=default                                                            
- 
 
+# ================= Queue API Options ==========================
+[queue]
+
+# Enable queuing asynchronous messaging.
+#   Set false to invoke worker tasks synchronously.
+enable = <%= @enable_queue %>
+
+# Broker URL
+# broker = kombu://guest@localhost/
+broker = <%= @queue_ips %>
+
+# Namespace for the queue
+namespace = 'barbican'
+
+# Topic for the queue
+topic = 'barbican.workers'
+
+# Version for the task API
+version = '1.1'
+
+# Server name for RPC service
+server_name = 'barbican.queue'

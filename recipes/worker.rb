@@ -33,6 +33,7 @@ end
 
 postgres_bag = data_bag_item("#{node.chef_environment}", 'postgresql')
 host_name = "#{node[:barbican_api][:host_name]}"
+enable_queue = "#{node[:barbican_api][:enable_queue]}"
 db_name = "#{node[:barbican_api][:db_name]}"
 db_user = "#{node[:barbican_api][:db_user]}"
 db_pw = postgres_bag['password']["#{db_user}"]
@@ -70,7 +71,7 @@ end
 if connection.empty?
   connection = "postgresql+psycopg2://#{db_user}:#{db_pw}@#{db_ip}:5432/#{db_name}"
 end
-queue_ips = q_ips.map{|n| "amqp://guest@#{n}/"}.join(',')
+queue_ips = q_ips.map{|n| "kombu://guest@#{n}/"}.join(',')
 Chef::Log.debug "queue_ips: #{queue_ips}"
 
 # Configure based on external dependencies.
@@ -81,7 +82,8 @@ template "/etc/barbican/barbican-api.conf" do
   variables({
     :host_name => host_name,
     :connection => connection,
-    :queue_ips => queue_ips
+    :queue_ips => queue_ips,
+    :enable_queue => enable_queue
   })
 end
 
