@@ -24,18 +24,6 @@ unless Chef::Config[:solo]
 end
 include_recipe 'ntp'
 
-execute "create-yum-cache" do
- command "yum -q makecache"
- action :nothing
-end
-
-ruby_block "reload-internal-yum-cache" do
-  block do
-    Chef::Provider::Package::Yum::YumCache.instance.reload
-  end
-  action :nothing
-end
-
 #TODO(reaperhulk): switch to TLS when we drop a cert on that repo
 yum_repository 'barbican' do
   description 'Barbican CentOS-$releasever - local packages for $basearch'
@@ -44,8 +32,6 @@ yum_repository 'barbican' do
   gpgcheck false
   gpgkey 'http://yum-repo.cloudkeep.io/gpg'
   action :create
-  notifies :run, "execute[create-yum-cache]", :immediately
-  notifies :create, "ruby_block[reload-internal-yum-cache]", :immediately
 end
 
 # Configure base New Relic monitoring.
