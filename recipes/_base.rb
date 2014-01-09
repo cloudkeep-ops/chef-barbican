@@ -17,7 +17,8 @@
 # limitations under the License.
 #
 
-include_recipe 'yum::epel'
+include_recipe 'yum'
+include_recipe 'yum-epel'
 unless Chef::Config[:solo]
     include_recipe 'authorized_keys'
 end
@@ -36,15 +37,13 @@ ruby_block "reload-internal-yum-cache" do
 end
 
 #TODO(reaperhulk): switch to TLS when we drop a cert on that repo
-yum_key "RPM-GPG-KEY-barbican" do
-  url "http://yum-repo.cloudkeep.io/gpg"
-  action :add
-end
-
-#TODO(dmend): Use yum_repository resource instead of cookbook_file
-cookbook_file "/etc/yum.repos.d/barbican.repo" do
-  source "barbican.repo"
-  mode 00644
+yum_repository 'barbican' do
+  description 'Barbican CentOS-$releasever - local packages for $basearch'
+  baseurl 'http://yum-repo.cloudkeep.io/centos/$releasever/barbican/$basearch'
+  enabled true
+  gpgcheck false
+  gpgkey 'http://yum-repo.cloudkeep.io/gpg'
+  action :create
   notifies :run, "execute[create-yum-cache]", :immediately
   notifies :create, "ruby_block[reload-internal-yum-cache]", :immediately
 end
