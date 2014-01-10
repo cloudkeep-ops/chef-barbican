@@ -52,7 +52,7 @@ else
   db_nodes = search(:node, "role:barbican-db AND chef_environment:#{node.chef_environment}")
   if db_nodes.empty?
     Chef::Log.info 'No database nodes found, using sqlite backend instead.'
-    connection = 'sqlite:////var/lib/baribcan/barbican.sqlite'
+    connection = 'sqlite:////var/lib/barbican/barbican.sqlite'
   else
     db_node = db_nodes[0]
     db_ip = db_node[:ipaddress]
