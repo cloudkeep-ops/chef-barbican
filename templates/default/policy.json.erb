@@ -1,0 +1,32 @@
+{
+    "admin": <%= (node['barbican']['policy']['admin_roles'].map {|role| "role:#{role}"}).to_s %>,
+    "audit": <%= (node['barbican']['policy']['audit_roles'].map {|role| "role:#{role}"}).to_s %>,
+    "creator": <%= (node['barbican']['policy']['creator_roles'].map {|role| "role:#{role}"}).to_s %>,
+    "observer": <%= (node['barbican']['policy']['observer_roles'].map {|role| "role:#{role}"}).to_s %>,
+
+    "admin_or_creator": ["rule:admin", "rule:creator"],
+    "all_but_audit": ["rule:admin", "rule:observer", "rule:creator"],
+    "all_users": ["rule:admin", "rule:observer", "rule:creator", "rule:audit"],
+
+    "version:get": "rule:all_users",
+
+    "secret:decrypt": "rule:all_but_audit",
+    "secret:delete": "rule:admin",
+    "secret:get": "rule:all_users",
+    "secret:put": "rule:admin_or_creator",
+
+    "secrets:get": "rule:all_but_audit",
+    "secrets:post": "rule:admin_or_creator",
+
+    "order:delete": "rule:admin",
+    "order:get": "rule:all_users",
+
+    "orders:get": "rule:all_but_audit",
+    "orders:post": "rule:admin_or_creator",
+
+    "verification:delete": "rule:admin",
+    "verification:get": "rule:all_users",
+
+    "verifications:get": "rule:all_but_audit",
+    "verifications:post": "rule:admin_or_creator"
+}

@@ -1,0 +1,13 @@
+[uwsgi]
+socket = <%= @socket %>
+protocol = <%= @protocol %>
+processes = <%= @processes %>
+lazy = <%= @lazy %>
+vacuum = <%= @vacuum %>
+no-default-app = <%= @no_default_app %>
+memory-report = <%= @memory_report %>
+plugins = <%= @plugins %>
+<% if @use_paste %>
+paste = <%= @paste %>
+<% end %>
+buffer-size = <%= @buffer_size %>
