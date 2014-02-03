@@ -87,6 +87,7 @@ default['barbican']['p11_crypto_plugin']['library_path'] = '/var/plugin'
 default['barbican']['p11_crypto_plugin']['login'] = 'password'
 
 # openstack policy settings
+default['barbican']['policy']['policy_file'] = '/etc/barbican/policy.json'
 default['barbican']['policy']['admin_roles'] = ['admin']
 default['barbican']['policy']['audit_roles'] = ['audit']
 default['barbican']['policy']['creator_roles'] = ['creator']

@@ -111,10 +111,10 @@ scrubber_datadir = /var/lib/barbican/scrubber
 
 # ======== OpenStack policy integration
 # JSON file representing policy (string value)                                          
-policy_file=/etc/barbican/policy.json
+policy_file = <%= node['barbican']['policy']['policy_file'] %>
 
 # Rule checked when requested rule is not found (string value)                          
-policy_default_rule=default                                                            
+policy_default_rule = default                                                            
 
 # ================= Queue API Options ==========================
 [queue]
