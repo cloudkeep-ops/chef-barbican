@@ -25,6 +25,7 @@ node.set['node_group']['tag'] = 'barbican_api'
 
 include_recipe 'barbican'
 
+# install packages for barbican api
 [node['barbican']['common_package'], node['barbican']['api_package']] .each do |pkg|
   package pkg do
     action :install
@@ -33,16 +34,19 @@ include_recipe 'barbican'
   end
 end
 
+# default to sql lite connection
 connection = node['barbican']['sqlite_connection']
 
+# if attribute is set, use postgres
 if node['barbican']['use_postgres']
   db_user = node['barbican']['db_user']
   db_pw = node['barbican']['db_password']
+
+  #if a databag name is provided, pull password from datbag
   if node['barbican']['postgres']['databag_name']
     postgres_bag = data_bag_item("#{node.chef_environment}", 'postgresql')
     db_pw = postgres_bag['password'][db_user]
-  end
-   
+  end 
   connection = "postgresql+psycopg2://#{db_user}:#{db_pw}@#{node[:barbican][:db_ip]}:5432/#{node[:barbican][:db_name]}"
 end
 
