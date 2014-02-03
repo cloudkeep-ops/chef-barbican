@@ -17,3 +17,22 @@
 # limitations under the License.
 #
 
+
+include_recipe 'yum'
+include_recipe 'yum-epel'
+
+#TODO(reaperhulk): switch to TLS when we drop a cert on that repo
+yum_repository 'barbican' do
+  description 'Barbican CentOS-$releasever - local packages for $basearch'
+  baseurl node['barbican']['yum_repo']['baseurl'] 
+  enabled true
+  gpgcheck node['barbican']['yum_repo']['gpgcheck']
+  gpgkey node['barbican']['yum_repo']['gpgkey']
+  action :create
+end
+
+if node['barbican']['use_postgres']
+  package "python-psycopg2" do
+    action :install
+  end
+end

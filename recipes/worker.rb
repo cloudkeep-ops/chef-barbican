@@ -21,9 +21,11 @@
 #   http://docs.opscode.com/resource_cookbook_file.html
 #
 
-include_recipe "barbican::_base"
+node.set['node_group']['tag'] = 'barbican_worker'
 
-%w{ barbican-common barbican-worker }.each do |pkg|
+include_recipe 'barbican'
+
+[node['barbican']['common_package'], node['barbican']['worker_package']] .each do |pkg|
   package pkg do
     action :install
     retries 5
@@ -31,59 +33,32 @@ include_recipe "barbican::_base"
   end
 end
 
-postgres_bag = data_bag_item("#{node.chef_environment}", 'postgresql')
-host_name = "#{node[:barbican_api][:host_name]}"
-enable_queue = "#{node[:barbican_api][:enable_queue]}"
-db_name = "#{node[:barbican_api][:db_name]}"
-db_user = "#{node[:barbican_api][:db_user]}"
-db_pw = postgres_bag['password']["#{db_user}"]
-db_ip = ''
-connection = ''
-q_ips = []
+connection = node['barbican']['sqlite_connection']
 
-# Determine external dependencies.
-if Chef::Config[:solo]
-  db_ip = "#{node[:solo_ips][:db]}"
-  for host_entry in node[:solo_ips][:queue_ips]
-    q_ips.push(host_entry[:ip])    
-  end
-else
-  # Get the DB node.
-  db_nodes = search(:node, "role:barbican-db AND chef_environment:#{node.chef_environment}")
-  if db_nodes.empty?
-    Chef::Log.info 'No database nodes found, using sqlite backend instead.'
-    connection = 'sqlite:////var/lib/barbican/barbican.sqlite'
-  else
-    db_node = db_nodes[0]
-    db_ip = db_node[:ipaddress]
-  end
+# if attribute is set, use postgres
+if node['barbican']['use_postgres']
+  db_user = node['barbican']['db_user']
+  db_pw = node['barbican']['db_password']
 
-  # Get the cluster of queue nodes.
-  q_nodes = search(:node, "role:barbican-queue AND chef_environment:#{node.chef_environment}")
-  if q_nodes.empty?
-    Chef::Log.info 'No other queue nodes found to cluster with.'
-  else
-    for q_node in q_nodes
-      q_ips.push(q_node[:ipaddress])          
-    end
-  end
+  #if a databag name is provided, pull password from datbag
+  if node['barbican']['postgres']['databag_name']
+    postgres_bag = data_bag_item("#{node.chef_environment}", 'postgresql')
+    db_pw = postgres_bag['password'][db_user]
+  end 
+  connection = "postgresql+psycopg2://#{db_user}:#{db_pw}@#{node[:barbican][:db_ip]}:5432/#{node[:barbican][:db_name]}"
 end
-if connection.empty?
-  connection = "postgresql+psycopg2://#{db_user}:#{db_pw}@#{db_ip}:5432/#{db_name}"
-end
-queue_ips = q_ips.map{|n| "kombu://guest@#{n}/"}.join(',')
-Chef::Log.debug "queue_ips: #{queue_ips}"
 
 # Configure based on external dependencies.
 template "/etc/barbican/barbican-api.conf" do
-  source "barbican-api.conf.erb"
+  source "barbican.conf.erb"
   owner "barbican"
   group "barbican"
   variables({
-    :host_name => host_name,
-    :connection => connection,
-    :queue_ips => queue_ips,
-    :enable_queue => enable_queue
+    :bind_host => node['barbican']['api']['bind_host'],
+    :bind_port => node['barbican']['api']['port'],
+    :host_ref => node['barbican']['api']['host_ref'],
+    :log_file => node['barbican']['worker']['log_file'],
+    :connection => connection
   })
 end
 
@@ -93,6 +68,3 @@ service "barbican-worker" do
   supports :status => true, :restart => true, :reload => true
   action [ :enable, :start ]
 end
-
-# Perform final configuration on the server.
-include_recipe 'barbican::_final'
