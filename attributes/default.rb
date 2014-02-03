@@ -83,7 +83,7 @@ default['barbican']['crypto']['enabled_crypto_plugins'] = ['simple_crypto']
 default['barbican']['simple_crypto_plugin']['kek'] = 'sixteen_byte_key'
 
 # PKCS11 crypto plugin settings
-default['barbican']['p11_crypto_plugin']['library_path'] = '/var/plugin'
+default['barbican']['p11_crypto_plugin']['library_path'] = '/usr/lib/libCryptoki2_64.so'
 default['barbican']['p11_crypto_plugin']['login'] = 'password'
 
 # openstack policy settings
