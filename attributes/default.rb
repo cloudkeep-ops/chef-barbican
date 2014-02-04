@@ -45,10 +45,10 @@ default['barbican']['db_password'] = 'barbican'
 
 default['barbican']['db_ip'] = '127.0.0.1'
 default['barbican']['sqlite_connection'] = 'sqlite:////var/lib/barbican/barbican.sqlite'
-default['barbicam']['sql_idle_timeout'] = 3600
-default['barbicam']['sql_max_retries'] = 60
-default['barbicam']['sql_retry_interval'] = 1
-default['barbicam']['db_auto_create'] = true
+default['barbican']['sql_idle_timeout'] = 3600
+default['barbican']['sql_max_retries'] = 60
+default['barbican']['sql_retry_interval'] = 1
+default['barbican']['db_auto_create'] = true
 default['barbican']['max_limit_paging'] = 100
 default['barbican']['default_limit_paging'] = 10
 
