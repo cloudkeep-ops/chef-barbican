@@ -56,11 +56,11 @@ sql_connection = <%= @connection %>
 # idle connections. This can result in 'MySQL Gone Away' exceptions. If you
 # notice this, you can lower this value to ensure that SQLAlchemy reconnects
 # before MySQL can drop the connection.
-sql_idle_timeout = <%= node['barbicam']['sql_idle_timeout'] %>
+sql_idle_timeout = <%= node['barbican']['sql_idle_timeout'] %>
 
-sql_max_retries = <%= node['barbicam']['sql_max_retries'] %>
-sql_retry_interval = <%= node['barbicam']['sql_retry_interval'] %>
-db_auto_create = <%= node['barbicam']['db_auto_create'] %>
+sql_max_retries = <%= node['barbican']['sql_max_retries'] %>
+sql_retry_interval = <%= node['barbican']['sql_retry_interval'] %>
+db_auto_create = <%= node['barbican']['db_auto_create'] %>
 
 # Maximum page size for the 'limit' paging URL parameter.
 max_limit_paging = <%= node['barbican']['max_limit_paging'] %>
