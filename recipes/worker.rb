@@ -30,7 +30,7 @@ include_recipe 'barbican'
     action :install
     retries 5
     retry_delay 10
-    version node['barbican']['version'] if node['barbican']['use_version']
+    version node['barbican']['version'] if node['barbican']['pin_version']
   end
 end
 
