@@ -42,7 +42,7 @@ if node['barbican']['use_postgres']
 
   #if a databag name is provided, pull password from datbag
   if node['barbican']['postgres']['databag_name']
-    postgres_bag = data_bag_item("#{node.chef_environment}", 'postgresql')
+    postgres_bag = data_bag_item(node['barbican']['postgres']['databag_name'], 'postgresql')
     db_pw = postgres_bag['password'][db_user]
   end 
   connection = "postgresql+psycopg2://#{db_user}:#{db_pw}@#{node[:barbican][:db_ip]}:5432/#{node[:barbican][:db_name]}"

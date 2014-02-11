@@ -66,10 +66,17 @@ default['barbican']['cert_file'] = '/path/to/certfile'
 default['barbican']['key_file'] = '/path/to/keyfile'
 default['barbican']['ca_file'] = '/path/to/cafile'
 
+# oslo.messaging 
+default['barbican']['queue']['databag_name'] = nil
+default['barbican']['queue']['ampq_durable_queues'] = true
+default['barbican']['queue']['rabbit_userid'] = 'guest'
+default['barbican']['queue']['rabbit_password'] = 'guest'
+default['barbican']['queue']['rabbit_ha_queues'] = false
+default['barbican']['queue']['rabbit_port'] = 5672
+default['barbican']['queue']['rabbit_hosts'] = ["localhost:#{node['barbican']['queue']['rabbit_port']}"]
 
 # queue settings
 default['barbican']['queue']['enable'] = false
-default['barbican']['queue']['queue_ips'] = ['127.0.0.1']
 default['barbican']['queue']['namespace'] = 'barbican'
 default['barbican']['queue']['topic'] = 'barbican.workers'
 default['barbican']['queue']['version'] = '1.1'

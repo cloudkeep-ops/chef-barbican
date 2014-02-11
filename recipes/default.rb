@@ -17,7 +17,6 @@
 # limitations under the License.
 #
 
-
 include_recipe 'yum'
 include_recipe 'yum-epel'
 
@@ -36,3 +35,9 @@ if node['barbican']['use_postgres']
     action :install
   end
 end
+
+if node['barbican']['queue']['databag_name']
+  rabbitmq_bag = data_bag_item(node['barbican']['queue']['databag_name'], 'rabbitmq')
+  node.set['barbican']['queue']['rabbit_userid'] = rabbitmq_bag['username']
+  node.set['barbican']['queue']['rabbit_password'] = rabbitmq_bag['password']
+end 

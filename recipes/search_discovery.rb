@@ -3,15 +3,16 @@
 unless Chef::Config[:solo]
 
   if node['barbican']['discovery']['enable_queue_search']
-    q_ips = []
+    rabbit_hosts = []
     q_nodes = search(:node, node['barbican']['discovery']['queue_search_query'])
     if q_nodes.empty?
       Chef::Log.info 'No queue nodes discovered, using default values'
     else
       for q_node in q_nodes
-        q_ips.push(select_ip_attribute(q_node, node['barbican']['discovery']['queue_ip_attribute']))            
+        q_ip = select_ip_attribute(q_node, node['barbican']['discovery']['queue_ip_attribute'])
+        rabbit_hosts.push("#{q_ip}:#{node['barbican']['queue']['rabbit_port']}")            
       end
-      node.set['barbican']['queue']['queue_ips'] = q_ips
+      node.set['barbican']['queue']['rabbit_hosts'] = rabbit_hosts
     end
   end
 
@@ -24,5 +25,5 @@ unless Chef::Config[:solo]
       node.set[:barbican][:db_ip] = select_ip_attribute(db_node, node['barbican']['discovery']['db_ip_attribute'])
     end
   end
-   
+  
 end
