@@ -152,7 +152,7 @@ server_name = <%= node['barbican']['queue']['server_name'] %>
 [crypto]
 
 namespace = <%= node['barbican']['crypto']['namespace'] %>
-enabled_crypto_plugins = <%= node['barbican']['crypto']['enabled_crypto_plugins'] %>
+enabled_crypto_plugins = <%= node['barbican']['crypto']['enabled_crypto_plugins'].join(',') %>
 
 
 <% if node['barbican']['crypto']['enabled_crypto_plugins'].include? 'p11_crypto_plugin' %>
