@@ -1,6 +1,9 @@
 # set tag to 'api' or 'worker'
 default['node_group']['tag'] = 'barbican_api'
 
+# setting use_version will pin the version number rather than installing the latest
+default['barbican']['use_version'] = false
+default['barbican']['version'] = '2014.1.dev13.g788d1ea-1'
 # repo and package settings
 default['barbican']['yum_repo']['baseurl'] = 'http://yum-repo.cloudkeep.io/centos/$releasever/barbican/$basearch'
 default['barbican']['yum_repo']['gpgcheck'] = false
