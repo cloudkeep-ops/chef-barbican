@@ -40,4 +40,5 @@ if node['barbican']['queue']['databag_name']
   rabbitmq_bag = data_bag_item(node['barbican']['queue']['databag_name'], 'rabbitmq')
   node.set['barbican']['queue']['rabbit_userid'] = rabbitmq_bag['username']
   node.set['barbican']['queue']['rabbit_password'] = rabbitmq_bag['password']
+  node.set['barbican']['queue']['rabbit_virtual_host'] = rabbitmq_bag['vhost']
 end 
