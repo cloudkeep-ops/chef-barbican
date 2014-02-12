@@ -77,6 +77,7 @@ default['barbican']['queue']['rabbit_password'] = 'guest'
 default['barbican']['queue']['rabbit_ha_queues'] = false
 default['barbican']['queue']['rabbit_port'] = 5672
 default['barbican']['queue']['rabbit_hosts'] = ["localhost:#{node['barbican']['queue']['rabbit_port']}"]
+default['barbican']['queue']['rabbit_virtual_host'] = "/barbican"
 
 # queue settings
 default['barbican']['queue']['enable'] = false
