@@ -118,3 +118,10 @@ default['barbican']['admin']['uwsgi']['plugins'] = 'python'
 default['barbican']['admin']['uwsgi']['use_paste'] = true
 default['barbican']['admin']['uwsgi']['paste'] = 'config:/etc/barbican/barbican-api-paste.ini'
 default['barbican']['admin']['uwsgi']['buffer_size'] = 32768
+
+# nova settings for verify-resource branch
+default['barbican']['nova']['auth_url'] = 'http://localhost:5000/v2.0'
+default['barbican']['nova']['username'] = 'username'
+default['barbican']['nova']['password'] = 'password'
+default['barbican']['nova']['project'] = 'tenant_id'
+default['barbican']['nova']['insecure_client'] = false

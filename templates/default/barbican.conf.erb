@@ -146,7 +146,7 @@ namespace = <%= node['barbican']['crypto']['namespace'] %>
 enabled_crypto_plugins = <%= node['barbican']['crypto']['enabled_crypto_plugins'] %>
 
 
-<% if node['barbican']['crypto']['enabled_crypto_plugins'].include? 'p11_crypto_plugin' %>
+<% if node['barbican']['crypto']['enabled_crypto_plugins'].include? 'simple_crypto' %>
 # ================= Simple Crypto Plugin Options ==========================
 [simple_crypto_plugin]
 
@@ -162,4 +162,16 @@ kek = <%= node['barbican']['simple_crypto_plugin']['kek']  %>
 library_path = <%= node['barbican']['p11_crypto_plugin']['library_path'] %>
 # Password to login to PKCS11 session
 login = <%= node['barbican']['p11_crypto_plugin']['login'] %>
+<% end %>
+
+# ================= Nova Configuration for verify-resource branch =========
+[nova]
+auth_url = <%= node['barbican']['nova']['auth_url'] %>
+username = <%= node['barbican']['nova']['username'] %>
+password = <%= node['barbican']['nova']['password'] %>
+project = <%= node['barbican']['nova']['project'] %>
+<% if node['barbican']['nova']['insecure_client'] %>
+insecure_client = True
+<% else %>
+insecure_client = False
 <% end %>
