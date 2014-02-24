@@ -30,11 +30,11 @@ yum_repository 'barbican' do
   action :create
 end
 
-if node['barbican']['use_postgres']
-  package "python-psycopg2" do
-    action :install
-  end
+package "python-psycopg2" do
+  only_if { node['barbican']['use_postgres'] }
+  action :install
 end
+
 
 if node['barbican']['queue']['databag_name']
   rabbitmq_bag = data_bag_item(node['barbican']['queue']['databag_name'], 'rabbitmq')
