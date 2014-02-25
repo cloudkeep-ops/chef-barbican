@@ -3,30 +3,39 @@
     "audit": <%= (node['barbican']['policy']['audit_roles'].map {|role| "role:#{role}"}).to_s %>,
     "creator": <%= (node['barbican']['policy']['creator_roles'].map {|role| "role:#{role}"}).to_s %>,
     "observer": <%= (node['barbican']['policy']['observer_roles'].map {|role| "role:#{role}"}).to_s %>,
+    "verifier": <%= (node['barbican']['policy']['verifier_roles'].map {|role| "role:#{role}"}).to_s %>,
 
     "admin_or_creator": ["rule:admin", "rule:creator"],
-    "all_but_audit": ["rule:admin", "rule:observer", "rule:creator"],
-    "all_users": ["rule:admin", "rule:observer", "rule:creator", "rule:audit"],
+    "admin_or_verifier": ["rule:admin", "rule:verifier"],
+    "all_but_audit_verifier": ["rule:admin", "rule:observer", "rule:creator"],
+    "all_but_verifier": ["rule:admin", "rule:observer", "rule:creator", "rule:audit"],
+    "all_users": ["rule:admin", "rule:observer", "rule:creator", "rule:audit", "rule:verifier"],
 
     "version:get": "rule:all_users",
 
-    "secret:decrypt": "rule:all_but_audit",
+    "secret:decrypt": "rule:all_but_audit_verifier",
     "secret:delete": "rule:admin",
-    "secret:get": "rule:all_users",
+    "secret:get": "rule:all_but_verifier",
     "secret:put": "rule:admin_or_creator",
 
-    "secrets:get": "rule:all_but_audit",
+    "secrets:get": "rule:all_but_audit_verifier",
     "secrets:post": "rule:admin_or_creator",
 
     "order:delete": "rule:admin",
-    "order:get": "rule:all_users",
+    "order:get": "rule:all_but_verifier",
 
-    "orders:get": "rule:all_but_audit",
+    "orders:get": "rule:all_but_audit_verifier",
     "orders:post": "rule:admin_or_creator",
 
     "verification:delete": "rule:admin",
-    "verification:get": "rule:all_users",
+    "verification:get": "rule:admin_or_verifier",
 
-    "verifications:get": "rule:all_but_audit",
-    "verifications:post": "rule:admin_or_creator"
+    "verifications:get": "rule:admin_or_verifier",
+    "verifications:post": "rule:admin_or_verifier",
+
+    "verification_expected:delete": "rule:admin",
+    "verification_expected:get": "rule:admin",
+    "verification_expected:put": "rule:admin",
+
+    "verifications_expected:post": "rule:admin"
 }
