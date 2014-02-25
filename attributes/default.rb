@@ -61,15 +61,15 @@ default['barbican']['admin_role'] = 'admin'
 default['barbican']['allow_anonymous_access'] = false
 
 # validator settings
-default['barbican']['max_allowed_secret_in_bytes'] = 10000
+default['barbican']['max_allowed_secret_in_bytes'] = 10_000
 
-#ssl settings
+# ssl settings
 default['barbican']['enable_ssl'] = false
 default['barbican']['cert_file'] = '/path/to/certfile'
 default['barbican']['key_file'] = '/path/to/keyfile'
 default['barbican']['ca_file'] = '/path/to/cafile'
 
-# oslo.messaging 
+# oslo.messaging
 default['barbican']['queue']['databag_name'] = nil
 default['barbican']['queue']['ampq_durable_queues'] = true
 default['barbican']['queue']['rabbit_userid'] = 'guest'
@@ -77,7 +77,7 @@ default['barbican']['queue']['rabbit_password'] = 'guest'
 default['barbican']['queue']['rabbit_ha_queues'] = false
 default['barbican']['queue']['rabbit_port'] = 5672
 default['barbican']['queue']['rabbit_hosts'] = ["localhost:#{node['barbican']['queue']['rabbit_port']}"]
-default['barbican']['queue']['rabbit_virtual_host'] = "/barbican"
+default['barbican']['queue']['rabbit_virtual_host'] = '/barbican'
 
 # queue settings
 default['barbican']['queue']['enable'] = false
@@ -90,7 +90,7 @@ default['barbican']['queue']['server_name'] = 'barbican.queue'
 default['barbican']['crypto']['namespace'] = 'barbican.crypto.plugin'
 default['barbican']['crypto']['enabled_crypto_plugins'] = ['simple_crypto']
 
-#simple crypto plugin settings
+# simple crypto plugin settings
 default['barbican']['simple_crypto_plugin']['kek'] = 'sixteen_byte_key'
 
 # PKCS11 crypto plugin settings
@@ -115,7 +115,7 @@ default['barbican']['api']['uwsgi']['memory_report'] = true
 default['barbican']['api']['uwsgi']['plugins'] = 'python'
 default['barbican']['api']['uwsgi']['use_paste'] = true
 default['barbican']['api']['uwsgi']['paste'] = 'config:/etc/barbican/barbican-api-paste.ini'
-default['barbican']['api']['uwsgi']['buffer_size'] = 32768
+default['barbican']['api']['uwsgi']['buffer_size'] = 32_768
 
 # admin uwsgi settings
 default['barbican']['admin']['uwsgi']['socket'] = "#{node['barbican']['admin']['bind_host']}:#{node['barbican']['admin']['port']}"
@@ -128,7 +128,7 @@ default['barbican']['admin']['uwsgi']['memory_report'] = true
 default['barbican']['admin']['uwsgi']['plugins'] = 'python'
 default['barbican']['admin']['uwsgi']['use_paste'] = true
 default['barbican']['admin']['uwsgi']['paste'] = 'config:/etc/barbican/barbican-api-paste.ini'
-default['barbican']['admin']['uwsgi']['buffer_size'] = 32768
+default['barbican']['admin']['uwsgi']['buffer_size'] = 32_768
 
 # nova settings for verify-resource branch
 default['barbican']['nova']['auth_url'] = 'http://localhost:5000/v2.0'
