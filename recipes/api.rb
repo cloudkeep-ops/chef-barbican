@@ -48,7 +48,7 @@ if node['barbican']['use_postgres']
     postgres_bag = data_bag_item(node['barbican']['postgres']['databag_name'], 'postgresql')
     db_pw = postgres_bag['password'][db_user]
   end 
-  connection = "postgresql+psycopg2://#{db_user}:#{db_pw}@#{node[:barbican][:db_ip]}:5432/#{node[:barbican][:db_name]}"
+  connection = "postgresql+psycopg2://#{db_user}:#{db_pw}@#{node['barbican']['db_ip']}:5432/#{node['barbican']['db_name']}"
 end
 
 # Create barbican conf files for api and admin services
