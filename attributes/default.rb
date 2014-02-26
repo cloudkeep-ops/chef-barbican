@@ -61,7 +61,7 @@ default['barbican']['default_limit_paging'] = 10
 default['barbican']['owner_is_tenant'] = true
 default['barbican']['admin_role'] = 'admin'
 default['barbican']['allow_anonymous_access'] = false
-default['barbican']['pipeline'] = ['unauthenticated-context']
+default['barbican']['pipeline'] = ['unauthenticated-context', 'apiapp']
 
 # validator settings
 default['barbican']['max_allowed_secret_in_bytes'] = 10_000
