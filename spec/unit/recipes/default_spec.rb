@@ -12,6 +12,8 @@ describe 'barbican::default' do
       :enabled => true,
       :gpgcheck => chef_run.node['barbican']['yum_repo']['gpgcheck'],
       :gpgkey => chef_run.node['barbican']['yum_repo']['gpgkey'],
+      :http_caching => chef_run.node['barbican']['yum_repo']['http_caching'],
+      :metadata_expire => chef_run.node['barbican']['yum_repo']['metadata_expire'],
       :action => [:create]
     )
 

@@ -27,6 +27,8 @@ yum_repository 'barbican' do
   enabled true
   gpgcheck node['barbican']['yum_repo']['gpgcheck']
   gpgkey node['barbican']['yum_repo']['gpgkey']
+  http_caching node['barbican']['yum_repo']['http_caching']
+  metadata_expire node['barbican']['yum_repo']['metadata_expire']
   action :create
 end
 
