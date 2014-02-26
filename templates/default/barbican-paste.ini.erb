@@ -1,6 +1,6 @@
 # Use this pipeline for Barbican API - DEFAULT no authentication
 [pipeline:main]
-pipeline = <%= (node['barbican']['pipeline’].join(' ')).to_s %> apiapp
+pipeline = <%= node['barbican']['pipeline’].join(' ') %> apiapp
 
 #Use this pipeline to activate a repoze.profile middleware and HTTP port,
 #  to provide profiling information for the REST API processing.
