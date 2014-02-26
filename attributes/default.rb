@@ -134,7 +134,6 @@ default['barbican']['admin']['uwsgi']['paste'] = 'config:/etc/barbican/barbican-
 default['barbican']['admin']['uwsgi']['buffer_size'] = 32_768
 
 # nova settings for verify-resource branch
-default['barbican']['nova']['databag_name'] = nil
 default['barbican']['nova']['auth_url'] = 'http://localhost:5000/v2.0'
 default['barbican']['nova']['username'] = 'username'
 default['barbican']['nova']['password'] = 'password'
