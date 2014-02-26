@@ -103,6 +103,7 @@ default['barbican']['policy']['admin_roles'] = ['admin']
 default['barbican']['policy']['audit_roles'] = ['audit']
 default['barbican']['policy']['creator_roles'] = ['creator']
 default['barbican']['policy']['observer_roles'] = ['observer']
+default['barbican']['policy']['verifier_roles'] = ['verifier']
 
 # api uwsgi settings
 default['barbican']['api']['uwsgi']['socket'] = "#{node['barbican']['api']['bind_host']}:#{node['barbican']['api']['port']}"
