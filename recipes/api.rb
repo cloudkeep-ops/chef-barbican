@@ -3,13 +3,13 @@
 # Recipe:: api
 #
 # Copyright (C) 2013 Rackspace, Inc.
-# 
+#
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# 
+#
 #    http://www.apache.org/licenses/LICENSE-2.0
-# 
+#
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -43,37 +43,38 @@ if node['barbican']['use_postgres']
   db_user = node['barbican']['db_user']
   db_pw = node['barbican']['db_password']
 
-  #if a databag name is provided, pull password from datbag
+  # if a databag name is provided, pull password from datbag
   if node['barbican']['postgres']['databag_name']
     postgres_bag = data_bag_item(node['barbican']['postgres']['databag_name'], 'postgresql')
     db_pw = postgres_bag['password'][db_user]
-  end 
+  end
   connection = "postgresql+psycopg2://#{db_user}:#{db_pw}@#{node['barbican']['db_ip']}:5432/#{node['barbican']['db_name']}"
 end
 
 # Create barbican conf files for api and admin services
 %w{ api admin }.each do |barbican_service|
   template "/etc/barbican/barbican-#{barbican_service}.conf" do
-    source "barbican.conf.erb"
-    owner "barbican"
-    group "barbican"
-    variables({
+    source 'barbican.conf.erb'
+    owner 'barbican'
+    group 'barbican'
+    variables(
       :bind_host => node['barbican'][barbican_service]['bind_host'],
       :bind_port => node['barbican'][barbican_service]['port'],
       :host_ref => node['barbican'][barbican_service]['host_ref'],
       :log_file => node['barbican'][barbican_service]['log_file'],
       :connection => connection
-    })
+    )
+    notifies :restart, 'service[barbican-api]'
   end
 end
 
 # create uwsgi.ini file for api and admin services
 %w{ api admin }.each do |vassal|
   template "/etc/barbican/vassals/barbican-#{vassal}.ini" do
-    source "uwsgi.ini.erb"
-    owner "barbican"
-    group "barbican"
-    variables({
+    source 'uwsgi.ini.erb'
+    owner 'barbican'
+    group 'barbican'
+    variables(
       :socket => node['barbican'][vassal]['uwsgi']['socket'],
       :protocol => node['barbican'][vassal]['uwsgi']['protocol'],
       :processes => node['barbican'][vassal]['uwsgi']['processes'],
@@ -85,20 +86,22 @@ end
       :use_paste => node['barbican'][vassal]['uwsgi']['use_paste'],
       :paste => node['barbican'][vassal]['uwsgi']['paste'],
       :buffer_size => node['barbican'][vassal]['uwsgi']['buffer_size']
-    })
+    )
+    notifies :restart, 'service[barbican-api]'
   end
 end
 
 # Configure policy file
-template "/etc/barbican/policy.json" do
-  source "policy.json.erb"
-  owner "barbican"
-  group "barbican"
+template '/etc/barbican/policy.json' do
+  source 'policy.json.erb'
+  owner 'barbican'
+  group 'barbican'
+  notifies :restart, 'service[barbican-api]'
 end
 
 # Start the daemon
-service "barbican-api" do
+service 'barbican-api' do
   provider Chef::Provider::Service::Upstart
   supports :status => true, :restart => true, :reload => true
-  action [ :enable, :start ]
+  action [:enable, :start]
 end
