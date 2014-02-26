@@ -43,12 +43,3 @@ if node['barbican']['queue']['databag_name']
   node.set['barbican']['queue']['rabbit_password'] = rabbitmq_bag['password']
   node.set['barbican']['queue']['rabbit_virtual_host'] = rabbitmq_bag['vhost']
 end
-
-if node['barbican']['nova']['databag_name']
-  nova_bag = data_bag_item(node['barbican']['nova']['databag_name'], 'nova')
-  node.set['barbican']['nova']['auth_url'] = nova_bag['auth_url']
-  node.set['barbican']['nova']['username'] = nova_bag['username']
-  node.set['barbican']['nova']['password'] = nova_bag['password']
-  node.set['barbican']['nova']['project'] = nova_bag['project']
-  node.set['barbican']['nova']['insecure_client'] = nova_bag['insecure_client']
-end
