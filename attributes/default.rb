@@ -3,11 +3,14 @@ default['node_group']['tag'] = 'barbican_api'
 
 # setting use_version will pin the version number rather than installing the latest
 default['barbican']['pin_version'] = false
-default['barbican']['version'] = '2014.1.dev13.g788d1ea-1'
+default['barbican']['version'] = '2014.1.1393358388.dev165.g7a18d0f-1'
 # repo and package settings
 default['barbican']['yum_repo']['baseurl'] = 'http://yum-repo.cloudkeep.io/centos/$releasever/barbican/$basearch'
 default['barbican']['yum_repo']['gpgcheck'] = false
 default['barbican']['yum_repo']['gpgkey'] = 'http://yum-repo.cloudkeep.io/gpg'
+default['barbican']['yum_repo']['http_caching'] = 'all'
+default['barbican']['yum_repo']['metadata_expire'] = '21600'
+
 
 default['barbican']['api_package'] = 'barbican-api'
 default['barbican']['common_package'] = 'barbican-common'
@@ -131,6 +134,7 @@ default['barbican']['admin']['uwsgi']['paste'] = 'config:/etc/barbican/barbican-
 default['barbican']['admin']['uwsgi']['buffer_size'] = 32_768
 
 # nova settings for verify-resource branch
+default['barbican']['nova']['databag_name'] = nil
 default['barbican']['nova']['auth_url'] = 'http://localhost:5000/v2.0'
 default['barbican']['nova']['username'] = 'username'
 default['barbican']['nova']['password'] = 'password'
