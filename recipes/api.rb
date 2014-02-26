@@ -68,6 +68,16 @@ end
   end
 end
 
+# Create barbican paste conf files for api and admin services
+%w{ api admin }.each do |barbican_service|
+  template "/etc/barbican/barbican-#{barbican_service}-paste.conf" do
+    source 'barbican-paste.ini.erb'
+    owner 'barbican'
+    group 'barbican'
+    notifies :restart, 'service[barbican-api]'
+  end
+end
+
 # create uwsgi.ini file for api and admin services
 %w{ api admin }.each do |vassal|
   template "/etc/barbican/vassals/barbican-#{vassal}.ini" do
