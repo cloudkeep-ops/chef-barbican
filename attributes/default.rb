@@ -11,7 +11,6 @@ default['barbican']['yum_repo']['gpgkey'] = 'http://yum-repo.cloudkeep.io/gpg'
 default['barbican']['yum_repo']['http_caching'] = 'all'
 default['barbican']['yum_repo']['metadata_expire'] = '21600'
 
-
 default['barbican']['api_package'] = 'barbican-api'
 default['barbican']['common_package'] = 'barbican-common'
 default['barbican']['worker_package'] = 'barbican-worker'
