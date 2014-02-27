@@ -70,7 +70,7 @@ end
 
 # Create barbican paste conf files for api and admin services
 %w{ api admin }.each do |barbican_service|
-  template "/etc/barbican/barbican-#{barbican_service}-paste.conf" do
+  template "/etc/barbican/barbican-#{barbican_service}-paste.ini" do
     source 'barbican-paste.ini.erb'
     owner 'barbican'
     group 'barbican'
