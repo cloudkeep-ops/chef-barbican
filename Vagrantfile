@@ -11,6 +11,9 @@ Vagrant.configure("2") do |config|
   # Every Vagrant virtual environment requires a box to build off of.
   config.vm.box = "centos-6.5"
 
+ # Omnibus plugin configuration
+  config.omnibus.chef_version = :latest
+
   # The url from where the 'config.vm.box' box will be fetched if it
   # doesn't already exist on the user's system.
   config.vm.box_url = "https://ca9f9b62ae1b1e47c4f8-989e703834df24142dff402333777a7c.ssl.cf1.rackcdn.com/centos-6.5-provisionerless.box"

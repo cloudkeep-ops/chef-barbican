@@ -95,7 +95,9 @@ end
       :plugins => node['barbican'][vassal]['uwsgi']['plugins'],
       :use_paste => node['barbican'][vassal]['uwsgi']['use_paste'],
       :paste => node['barbican'][vassal]['uwsgi']['paste'],
-      :buffer_size => node['barbican'][vassal]['uwsgi']['buffer_size']
+      :buffer_size => node['barbican'][vassal]['uwsgi']['buffer_size'],
+      :uid => node['barbican'][vassal]['uwsgi']['uid'],
+      :gid => node['barbican'][vassal]['uwsgi']['gid']
     )
     notifies :restart, 'service[barbican-api]'
   end
