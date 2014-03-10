@@ -14,7 +14,7 @@ unless Chef::Config[:solo]
     if q_nodes.empty?
       Chef::Log.info 'No queue nodes discovered, using default values'
     else
-      node.set['barbican']['queue']['rabbit_hosts'] = rabbit_hosts
+      node.set['barbican']['queue']['rabbit_hosts'] = rabbit_hosts.sort
     end
   end
 
@@ -24,7 +24,7 @@ unless Chef::Config[:solo]
       Chef::Log.info 'No database nodes found, using sqlite backend instead.'
     else
       db_node = db_nodes[0]
-      node.set[:barbican][:db_ip] = select_ip_attribute(db_node, node['barbican']['discovery']['db_ip_attribute'])
+      node.set['barbican']['db_ip'] = select_ip_attribute(db_node, node['barbican']['discovery']['db_ip_attribute'])
     end
   end
 

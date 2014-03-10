@@ -32,6 +32,7 @@ include_recipe 'barbican'
     retries 5
     retry_delay 10
     version node['barbican']['version'] if node['barbican']['pin_version']
+    notifies :restart, 'service[barbican-api]'
   end
 end
 
