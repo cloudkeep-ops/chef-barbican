@@ -140,6 +140,7 @@ default['barbican']['admin']['uwsgi']['gid'] = 'barbican'
 
 # nova settings for verify-resource branch
 default['barbican']['nova']['auth_url'] = 'http://localhost:5000/v2.0'
+default['barbican']['nova']['bypass_url'] = 'http://localhost:8774'
 default['barbican']['nova']['username'] = 'username'
 default['barbican']['nova']['password'] = 'password'
 default['barbican']['nova']['project'] = 'tenant_id'
