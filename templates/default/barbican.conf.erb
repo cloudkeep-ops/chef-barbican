@@ -177,6 +177,7 @@ login = <%= node['barbican']['p11_crypto_plugin']['login'] %>
 # ================= Nova Configuration for verify-resource branch =========
 [nova]
 auth_url = <%= node['barbican']['nova']['auth_url'] %>
+bypass_url = <%= node['barbican']['nova']['bypass_url'] %>
 username = <%= node['barbican']['nova']['username'] %>
 password = <%= node['barbican']['nova']['password'] %>
 project = <%= node['barbican']['nova']['project'] %>
