@@ -61,7 +61,7 @@ default['barbican']['default_limit_paging'] = 10
 default['barbican']['owner_is_tenant'] = true
 default['barbican']['admin_role'] = 'admin'
 default['barbican']['allow_anonymous_access'] = false
-default['barbican']['pipeline'] = ['unauthenticated-context', 'apiapp']
+default['barbican']['pipeline'] = %w(unauthenticated-context apiapp)
 
 # validator settings
 default['barbican']['max_allowed_secret_in_bytes'] = 10_000
@@ -121,7 +121,7 @@ default['barbican']['api']['uwsgi']['use_paste'] = true
 default['barbican']['api']['uwsgi']['paste'] = 'config:/etc/barbican/barbican-api-paste.ini'
 default['barbican']['api']['uwsgi']['buffer_size'] = 32_768
 default['barbican']['api']['uwsgi']['uid'] = 'barbican'
-default['barbican']['api']['uwsgi']['gid'] = 'barbican' 
+default['barbican']['api']['uwsgi']['gid'] = 'barbican'
 
 # admin uwsgi settings
 default['barbican']['admin']['uwsgi']['socket'] = "#{node['barbican']['admin']['bind_host']}:#{node['barbican']['admin']['port']}"
@@ -136,7 +136,7 @@ default['barbican']['admin']['uwsgi']['use_paste'] = true
 default['barbican']['admin']['uwsgi']['paste'] = 'config:/etc/barbican/barbican-api-paste.ini'
 default['barbican']['admin']['uwsgi']['buffer_size'] = 32_768
 default['barbican']['admin']['uwsgi']['uid'] = 'barbican'
-default['barbican']['admin']['uwsgi']['gid'] = 'barbican' 
+default['barbican']['admin']['uwsgi']['gid'] = 'barbican'
 
 # nova settings for verify-resource branch
 default['barbican']['nova']['auth_url'] = 'http://localhost:5000/v2.0'
