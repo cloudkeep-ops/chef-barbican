@@ -81,7 +81,7 @@ allow_anonymous_access = <%= node['barbican']['allow_anonymous_access'] %>
 
 #maximum secret size for validators
 max_allowed_secret_in_bytes = <%= node['barbican']['max_allowed_secret_in_bytes'] %>
-
+max_allowed_request_size_in_bytes = <%= node['barbican']['max_allowed_request_size_in_bytes'] %>
 
 <% if node['barbican']['enable_ssl'] %>
 # ================= SSL Options ===============================
