@@ -123,6 +123,8 @@ default['barbican']['api']['uwsgi']['paste'] = 'config:/etc/barbican/barbican-ap
 default['barbican']['api']['uwsgi']['buffer_size'] = 32_768
 default['barbican']['api']['uwsgi']['uid'] = 'barbican'
 default['barbican']['api']['uwsgi']['gid'] = 'barbican'
+default['barbican']['api']['uwsgi']['use_syslog'] = true
+default['barbican']['api']['uwsgi']['syslog_log_facility'] = 'local1.*'
 
 # admin uwsgi settings
 default['barbican']['admin']['uwsgi']['socket'] = "#{node['barbican']['admin']['bind_host']}:#{node['barbican']['admin']['port']}"
@@ -138,6 +140,8 @@ default['barbican']['admin']['uwsgi']['paste'] = 'config:/etc/barbican/barbican-
 default['barbican']['admin']['uwsgi']['buffer_size'] = 32_768
 default['barbican']['admin']['uwsgi']['uid'] = 'barbican'
 default['barbican']['admin']['uwsgi']['gid'] = 'barbican'
+default['barbican']['admin']['uwsgi']['use_syslog'] = true
+default['barbican']['admin']['uwsgi']['syslog_log_facility'] = 'local1.*'
 
 # nova settings for verify-resource branch
 default['barbican']['nova']['auth_url'] = 'http://localhost:5000/v2.0'
