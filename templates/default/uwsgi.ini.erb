@@ -13,3 +13,6 @@ paste = <%= @paste %>
 buffer-size = <%= @buffer_size %>
 uid = <%= @uid %>
 gid = <%= @gid %>
+<% if @use_syslog %>
+logger = syslog:barbican-<%= @syslog_service_name %>,<%= @syslog_log_facility %>
+<% end %>

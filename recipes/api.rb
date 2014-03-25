@@ -32,6 +32,7 @@ include_recipe 'barbican'
     retries 5
     retry_delay 10
     version node['barbican']['version'] if node['barbican']['pin_version']
+    notifies :restart, 'service[barbican-api]'
   end
 end
 
@@ -97,7 +98,10 @@ end
       :paste => node['barbican'][vassal]['uwsgi']['paste'],
       :buffer_size => node['barbican'][vassal]['uwsgi']['buffer_size'],
       :uid => node['barbican'][vassal]['uwsgi']['uid'],
-      :gid => node['barbican'][vassal]['uwsgi']['gid']
+      :gid => node['barbican'][vassal]['uwsgi']['gid'],
+      :use_syslog => node['barbican'][vassal]['uwsgi']['use_syslog'],
+      :syslog_service_name => vassal,
+      :syslog_log_facility => node['barbican'][vassal]['uwsgi']['syslog_log_facility']
     )
     notifies :restart, 'service[barbican-api]'
   end
