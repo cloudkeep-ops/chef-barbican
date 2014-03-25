@@ -60,7 +60,11 @@ sql_idle_timeout = <%= node['barbican']['sql_idle_timeout'] %>
 
 sql_max_retries = <%= node['barbican']['sql_max_retries'] %>
 sql_retry_interval = <%= node['barbican']['sql_retry_interval'] %>
-db_auto_create = <%= node['barbican']['db_auto_create'] %>
+
+# Disable auto-creation/update of database tables when the application boots up.
+<% if !node['barbican']['db_auto_create'] %>
+db_auto_create = False
+<% end %>
 
 # Maximum page size for the 'limit' paging URL parameter.
 max_limit_paging = <%= node['barbican']['max_limit_paging'] %>
