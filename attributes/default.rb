@@ -82,6 +82,7 @@ default['barbican']['queue']['rabbit_ha_queues'] = false
 default['barbican']['queue']['rabbit_port'] = 5672
 default['barbican']['queue']['rabbit_hosts'] = ["localhost:#{node['barbican']['queue']['rabbit_port']}"]
 default['barbican']['queue']['rabbit_virtual_host'] = '/barbican'
+default['barbican']['queue']['rpc_thread_pool_size'] = 1000
 
 # queue settings
 default['barbican']['queue']['enable'] = false
