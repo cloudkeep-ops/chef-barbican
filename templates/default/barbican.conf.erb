@@ -33,10 +33,10 @@ bind_port = <%= @bind_port %>
 # Host name, for use in HATEOS-style references
 #  Note: Typically this would be the load balanced endpoint that clients would use
 #  communicate back with this service.
-host_href = <%= @host_ref %>   
+host_href = <%= @host_ref %>
 
 # Backlog requests when creating socket
-backlog = <%= node['barbican']['backlog'] %> 
+backlog = <%= node['barbican']['backlog'] %>
 
 # TCP_KEEPIDLE value in seconds when creating socket.
 # Not supported on OS X.
@@ -71,8 +71,8 @@ max_limit_paging = <%= node['barbican']['max_limit_paging'] %>
 # Default page size for the 'limit' paging URL parameter.
 default_limit_paging = <%= node['barbican']['default_limit_paging'] %>
 
-# When owner_is_tenant is true true, this option sets the owner 
-# of an image to be the tenant. Otherwise, the owner of the image 
+# When owner_is_tenant is true true, this option sets the owner
+# of an image to be the tenant. Otherwise, the owner of the image
 # will be the authenticated user issuing the request.
 owner_is_tenant = <%= node['barbican']['owner_is_tenant'] %>
 
@@ -114,10 +114,10 @@ scrub_time = 43200
 scrubber_datadir = /var/lib/barbican/scrubber
 
 # ======== OpenStack policy integration
-# JSON file representing policy (string value)                                          
+# JSON file representing policy (string value)
 policy_file = <%= node['barbican']['policy']['policy_file'] %>
 
-# Rule checked when requested rule is not found (string value)                          
+# Rule checked when requested rule is not found (string value)
 policy_default_rule = default
 
 # ================= Queue Options - oslo.messaging ==========================
@@ -131,7 +131,10 @@ rabbit_virtual_host = <%= node['barbican']['queue']['rabbit_virtual_host'] %>
 
 # For HA, specify queue nodes in cluster, comma delimited:
 #   For example: rabbit_hosts=192.168.50.8:5672, 192.168.50.9:5672
-rabbit_hosts = <%= node['barbican']['queue']['rabbit_hosts'].join(', ') %>                                                      
+rabbit_hosts = <%= node['barbican']['queue']['rabbit_hosts'].join(', ') %>
+
+# The number of threads to have in the oslo.messaging executor
+rpc_thread_pool_size = <%= node['barbican']['queue']['rpc_thread_pool_size'] %>
 
 # ================= Queue API Options ==========================
 [queue]
