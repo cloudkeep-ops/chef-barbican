@@ -94,6 +94,8 @@ end
       :no_default_app => node['barbican'][vassal]['uwsgi']['no_default_app'],
       :memory_report => node['barbican'][vassal]['uwsgi']['memory_report'],
       :plugins => node['barbican'][vassal]['uwsgi']['plugins'],
+      :enable_threads => node['barbican'][vassal]['uwsgi']['enable_threads'],
+      :single_interpreter => node['barbican'][vassal]['uwsgi']['single_interpreter'],
       :use_paste => node['barbican'][vassal]['uwsgi']['use_paste'],
       :paste => node['barbican'][vassal]['uwsgi']['paste'],
       :buffer_size => node['barbican'][vassal]['uwsgi']['buffer_size'],
