@@ -83,6 +83,7 @@ default['barbican']['queue']['rabbit_ha_queues'] = false
 default['barbican']['queue']['rabbit_port'] = 5672
 default['barbican']['queue']['rabbit_hosts'] = ["localhost:#{node['barbican']['queue']['rabbit_port']}"]
 default['barbican']['queue']['rabbit_virtual_host'] = '/barbican'
+default['barbican']['queue']['rpc_thread_pool_size'] = 1000
 
 # queue settings
 default['barbican']['queue']['enable'] = false
@@ -119,6 +120,8 @@ default['barbican']['api']['uwsgi']['vacuum'] = true
 default['barbican']['api']['uwsgi']['no_default_app'] = true
 default['barbican']['api']['uwsgi']['memory_report'] = true
 default['barbican']['api']['uwsgi']['plugins'] = 'python'
+default['barbican']['api']['uwsgi']['enable_threads'] = true
+default['barbican']['api']['uwsgi']['single_interpreter'] = true
 default['barbican']['api']['uwsgi']['use_paste'] = true
 default['barbican']['api']['uwsgi']['paste'] = 'config:/etc/barbican/barbican-api-paste.ini'
 default['barbican']['api']['uwsgi']['buffer_size'] = 32_768
@@ -136,6 +139,8 @@ default['barbican']['admin']['uwsgi']['vacuum'] = true
 default['barbican']['admin']['uwsgi']['no_default_app'] = true
 default['barbican']['admin']['uwsgi']['memory_report'] = true
 default['barbican']['admin']['uwsgi']['plugins'] = 'python'
+default['barbican']['admin']['uwsgi']['enable_threads'] = true
+default['barbican']['admin']['uwsgi']['single_interpreter'] = true
 default['barbican']['admin']['uwsgi']['use_paste'] = true
 default['barbican']['admin']['uwsgi']['paste'] = 'config:/etc/barbican/barbican-api-paste.ini'
 default['barbican']['admin']['uwsgi']['buffer_size'] = 32_768
