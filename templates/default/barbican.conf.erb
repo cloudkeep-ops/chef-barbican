@@ -155,6 +155,27 @@ version = <%= node['barbican']['queue']['version'] %>
 # Server name for RPC service
 server_name = <%= node['barbican']['queue']['server_name'] %>
 
+# Maximum times to retry a failed task
+task_max_retries = <%= node['barbican']['queue']['task_max_retries'] %>
+
+# Seconds to wait between retries for failed tasks
+task_retry_seconds = <%= node['barbican']['queue']['task_retry_seconds'] %>
+
+# Seconds (float) to wait between starting retry scheduler
+task_retry_tg_initial_delay = <%= node['barbican']['queue']['task_retry_tg_initial_delay'] %>
+
+# Seconds (float) for thread group interval max
+# !!!! WARNING: Set the seconds here the same on
+#      'task_retry_scheduler' below !!!!
+task_retry_tg_periodic_interval_max = <%= node['barbican']['queue']['task_retry_tg_periodic_interval_max'] %>
+
+# Seconds for retry scheduler cycle
+# !!!! WARNING: Set the seconds here the same on
+#     'task_retry_tg_periodic_interval_max' above !!!!
+task_retry_scheduler_cycle = <%= node['barbican']['queue']['task_retry_scheduler_cycle'] %>
+
+
+
 
 # ================= Crypto Extension Options ==========================
 [crypto]
