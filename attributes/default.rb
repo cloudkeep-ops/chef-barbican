@@ -94,14 +94,7 @@ default['barbican']['queue']['task_retry_seconds'] = 30
 # - Seconds (float) to wait between starting retry scheduler
 default['barbican']['queue']['task_retry_tg_initial_delay'] = 10.0
 
-# - Seconds (float) for thread group interval max
-#   !!!! WARNING: Set the seconds here the same on
-#        'task_retry_scheduler' below !!!!
-default['barbican']['queue']['task_retry_tg_periodic_interval_max'] = 30.0
-
 # - Seconds for retry scheduler cycle
-#   !!!! WARNING: Set the seconds here the same on
-#       'task_retry_tg_periodic_interval_max' above !!!!
 default['barbican']['queue']['task_retry_scheduler_cycle'] = 30
 
 # queue settings
