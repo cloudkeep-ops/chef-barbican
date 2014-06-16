@@ -66,7 +66,7 @@ default['barbican']['pipeline-version'] = %w(unauthenticated-context versionapp)
 
 # validator settings
 default['barbican']['max_allowed_secret_in_bytes'] = 10_000
-default['barbican']['max_allowed_request_size_in_bytes'] = 15_000
+default['barbican']['max_allowed_request_size_in_bytes'] = 1_000_000
 
 # ssl settings
 default['barbican']['enable_ssl'] = false
