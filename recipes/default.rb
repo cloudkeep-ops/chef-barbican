@@ -20,6 +20,14 @@
 include_recipe 'yum'
 include_recipe 'yum-epel'
 
+yum_repository "RDO-#{node['openstack']['release']}" do
+  description "OpenStack RDO repo for #{node['openstack']['release']}"
+  baseurl node['openstack']['yum']['uri']
+  enabled true
+  gpgkey node['openstack']['yum']['repo-key']
+  action :create
+end
+
 # TODO(reaperhulk): switch to TLS when we drop a cert on that repo
 yum_repository 'barbican' do
   description 'Barbican CentOS-$releasever - local packages for $basearch'
@@ -31,6 +39,16 @@ yum_repository 'barbican' do
   metadata_expire node['barbican']['yum_repo']['metadata_expire']
   action :create
 end
+
+#TODO(dmend): Use EPEL package if this bug is ever fixed
+# https://bugzilla.redhat.com/show_bug.cgi?id=814598
+package 'python-uwsgi'
+
+#TODO(dmend): Use RDO package if they pick this one up
+%w{ libffi-devel python-devel openssl-devel }.each do |pkg|
+  package pkg
+end
+python_pip "cryptography"
 
 package 'python-psycopg2' do
   only_if { node['barbican']['use_postgres'] }

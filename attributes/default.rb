@@ -4,6 +4,7 @@ default['node_group']['tag'] = 'barbican_api'
 # setting use_version will pin the version number rather than installing the latest
 default['barbican']['pin_version'] = false
 default['barbican']['version'] = '2014.1.1393358388.dev165.g7a18d0f-1'
+
 # repo and package settings
 default['barbican']['yum_repo']['baseurl'] = 'http://yum-repo.cloudkeep.io/centos/$releasever/barbican/$basearch'
 default['barbican']['yum_repo']['gpgcheck'] = false
@@ -14,6 +15,10 @@ default['barbican']['yum_repo']['metadata_expire'] = '21600'
 default['barbican']['api_package'] = 'barbican-api'
 default['barbican']['common_package'] = 'barbican-common'
 default['barbican']['worker_package'] = 'barbican-worker'
+
+default['openstack']['release'] = 'icehouse'
+default['openstack']['yum']['repo-key'] = 'https://raw.githubusercontent.com/redhat-openstack/rdo-release/master/RPM-GPG-KEY-RDO-Icehouse'
+default['openstack']['yum']['uri'] = 'http://repos.fedorapeople.org/repos/openstack/openstack-icehouse/epel-6'
 
 # api specific settings
 default['barbican']['api']['bind_host'] = '0.0.0.0'
