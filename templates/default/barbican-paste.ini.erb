@@ -36,15 +36,15 @@ paste.filter_factory = barbican.api.middleware.context:ContextMiddleware.factory
 
 [filter:keystone_authtoken]
 paste.filter_factory = keystoneclient.middleware.auth_token:filter_factory
-signing_dir = /tmp/barbican/cache
-auth_host = localhost
+signing_dir = <%= node['barbican']['keystone']['signing_dir'] %>
+auth_host = <%= node['barbican']['keystone']['auth_host'] %>
 #need ability to re-auth a token, thus admin url
-auth_port = 35357
-auth_protocol = http
-admin_tenant_name = service
-admin_user = barbican
-admin_password = orange
-auth_version = v2.0
+auth_port = <%= node['barbican']['keystone']['auth_port'] %>
+auth_protocol = <%= node['barbican']['keystone']['auth_protocol'] %>
+admin_tenant_name = <%= node['barbican']['keystone']['admin_tenant_name'] %>
+admin_user = <%= node['barbican']['keystone']['admin_user'] %>
+admin_password = <%= node['barbican']['keystone']['admin_password'] %>
+auth_version = <%= node['barbican']['keystone']['auth_version'] %>
 #delay failing perhaps to log the unauthorized request in barbican ..
 #delay_auth_decision = true
 
