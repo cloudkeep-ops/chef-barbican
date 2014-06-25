@@ -69,6 +69,16 @@ default['barbican']['allow_anonymous_access'] = false
 default['barbican']['pipeline-api'] = %w(unauthenticated-context apiapp)
 default['barbican']['pipeline-version'] = %w(unauthenticated-context versionapp)
 
+# keystone middleware options
+default['barbican']['keystone']['signing_dir'] = '/tmp/barbican/cache'
+default['barbican']['keystone']['auth_host'] = 'localhost'
+default['barbican']['keystone']['auth_port'] = 35357
+default['barbican']['keystone']['auth_protocol'] = 'http'
+default['barbican']['keystone']['admin_tenant_name'] = 'service'
+default['barbican']['keystone']['admin_user'] = 'barbican'
+default['barbican']['keystone']['admin_password'] = 'barbican'
+default['barbican']['keystone']['auth_version'] = 'v2.0'
+
 # validator settings
 default['barbican']['max_allowed_secret_in_bytes'] = 10_000
 default['barbican']['max_allowed_request_size_in_bytes'] = 1_000_000
@@ -165,11 +175,3 @@ default['barbican']['admin']['uwsgi']['uid'] = 'barbican'
 default['barbican']['admin']['uwsgi']['gid'] = 'barbican'
 default['barbican']['admin']['uwsgi']['use_syslog'] = true
 default['barbican']['admin']['uwsgi']['syslog_log_facility'] = 'local1.*'
-
-# nova settings for verify-resource branch
-default['barbican']['nova']['auth_url'] = 'http://localhost:5000/v2.0'
-default['barbican']['nova']['bypass_url'] = 'http://localhost:8774'
-default['barbican']['nova']['username'] = 'username'
-default['barbican']['nova']['password'] = 'password'
-default['barbican']['nova']['project'] = 'tenant_id'
-default['barbican']['nova']['insecure_client'] = false
